@@ -7,7 +7,6 @@ class Post
     @title = doc.title
     @url = doc.url
     @points = doc.css("span[class=score]").text
-    # @item_id = doc.css()
     @comment_array = []
   end
 
@@ -17,12 +16,11 @@ class Post
       new_comment = Comment.new(user, comment.text)
       add_comment(new_comment)
     end
-    byebug
-    return @comment_array.each {|comment|}
+    return self.comment_array
   end
 
   def add_comment(new_comment)
-    @comment_array << new_comment 
+    self.comment_array << new_comment
   end
 
 end

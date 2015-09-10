@@ -5,20 +5,14 @@
 require 'rubygems'
 require 'nokogiri'
 require 'byebug'
+require 'open-uri'
+require 'colorize'
 require_relative 'post'
 require_relative 'comment'
 
-
-doc = Nokogiri::HTML(File.open('post.html'))
+url = ARGV[0]
+doc = Nokogiri::HTML(open(url))
 post = Post.new(doc)
 
-puts post.comments(doc)
-
-
-#post.add_comment(Comment.new)
-
-# puts doc.search('.subtext > span:first-child').map { |span| span.inner_text}
-# puts doc.search('.subtext > a:nth-child(3)').map {|link| link['href'] }
-# puts doc.search('.title > a:first-child').map { |link| link.inner_text}
-# puts doc.search('.title > a:first-child').map { |link| link['href']}
-# puts doc.search('.comment > font:first-child').map { |font| font.inner_text}
+puts "Post title: " + post.title.to_s
+puts "Number of comments: " + post.comments(doc).count.to_s
